@@ -23,10 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -133,7 +130,8 @@ public class Fido2Endpoint {
         System.out.println(new String(Base64Utils.decodeFromString(clientJSON)));
 
         System.out.println(Base64Utils.decodeFromString(challenge));
-        System.out.println(Base64Utils.decodeFromString("hVVjw-RbK6nJle8DrCNymSUi_9S7H90NEuZaqBpJhVU"));
+
+        System.out.println("2A7-qs5kT1G0_cvcMJxGjw".replaceAll("-", "+").replaceAll("_", "/"));
 
     }
 }

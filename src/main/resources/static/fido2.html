@@ -28,7 +28,7 @@
         async function fidoReg(registrationChallenge) {
             const publicKeyCredentialCreationOptions = {
                 challenge: Uint8Array.from(
-                    atob(registrationChallenge.challenge), c => c.charCodeAt(0)),
+                    atob(registrationChallenge.challenge.replace(/\-/g, "+").replace(/\_/g, "/").replace(/=/g, "")), c => c.charCodeAt(0)),
                 rp: {
                     name: registrationChallenge.rpId,
                     id: registrationChallenge.rpId,
@@ -85,7 +85,7 @@
 
             const publicKeyCredentialRequestOptions = {
                 challenge: Uint8Array.from(
-                    atob(authenticationChallenge.challenge), c => c.charCodeAt(0)),
+                    atob(authenticationChallenge.challenge.replace(/\-/g, "+").replace(/\_/g, "/").replace(/=/g, "")), c => c.charCodeAt(0)),
                 // allowCredentials: [{
                 //     id: Uint8Array.from(
                 //         atob(document.querySelector("#credentailId").value.replace(/\-/g, "+").replace(/\_/g, "/").replace(/=/g, "")), c => c.charCodeAt(0)),
@@ -205,6 +205,7 @@
                 .replace(/\//g, "_")
                 .replace(/=/g, "");
         };
+
     </script>
 </head>
 

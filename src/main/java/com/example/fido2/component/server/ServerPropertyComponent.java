@@ -28,7 +28,7 @@ public class ServerPropertyComponent {
         Challenge challenge = new Challenge() {
             @Override
             public byte[] getValue() {
-                return Base64Util.decode(fidoChallenge.getChallenge());
+                return Base64Util.decode(fidoChallenge.getChallenge().replaceAll("-", "+").replaceAll("_", "/"));
             }
         };
         byte[] tokenBindingId = null /* set tokenBindingId */;

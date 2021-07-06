@@ -12,6 +12,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
@@ -42,7 +43,7 @@ public class RegistrationChallengeComponent implements ChallengeComponent {
         private Origin origin;
 
         public RegistrationFidoChallenge(String username) {
-            this.challenge = Base64Util.encodeToString(new DefaultChallenge().getValue());
+            this.challenge = new String(Base64.getUrlEncoder().withoutPadding().encode(new DefaultChallenge().getValue()), Charset.defaultCharset());//Base64Util.encodeToString(new DefaultChallenge().getValue());
 
             //TODO Authorization Basic 정보 기반 rp, origin 정보 set
             String rpUrl = "http://localhost:8080";
@@ -128,7 +129,7 @@ public class RegistrationChallengeComponent implements ChallengeComponent {
     public static void main(String[] args) {
         for(int i=0;i<10;i++) {
 //            String challenge = Base64Util.encodeToString(new DefaultChallenge().getValue());
-            String challenge = new String(Base64.getUrlEncoder().withoutPadding().encode(new DefaultChallenge().getValue()));
+            String challenge = new String(Base64.getUrlEncoder().withoutPadding().encode(new DefaultChallenge().getValue()), Charset.defaultCharset());
             System.out.println(challenge);
 
         }

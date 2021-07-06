@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -47,7 +49,7 @@ public class AuthenticationChallengeComponent implements ChallengeComponent {
         private List<AllowCredentials> allowCredentials;
 
         public AuthenticationFidoChallenge(String username, SimpleCache simpleCache) {
-            this.challenge = Base64Util.encodeToString(new DefaultChallenge().getValue());
+            this.challenge = new String(Base64.getUrlEncoder().withoutPadding().encode(new DefaultChallenge().getValue()), Charset.defaultCharset());//Base64Util.encodeToString(new DefaultChallenge().getValue());
 //            String url = String.format("%s://%s:%s", request.getScheme(), request.getServerName(), request.getServerPort());
 //            this.origin = new Origin(url);
 //            this.rpId = origin.getHost();
