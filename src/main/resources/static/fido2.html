@@ -14,7 +14,15 @@
 
     <script>
         async function reg() {
-            connectServer("GET", "http://localhost:8080/challenge/reg/" + document.querySelector("#username").value, null, fidoReg)
+            var body = {
+                userId: document.querySelector("#username").value,
+                conext: {
+                    username: document.querySelector("#username").value,
+                    siteId: origin
+                }
+            };
+            // connectServer("GET", "http://localhost:8080/challenge/reg/" + document.querySelector("#username").value, null, fidoReg)
+            connectServer("POST", "http://localhost:8080/challenge/reg", body, fidoReg)
         }
 
         async function fidoReg(registrationChallenge) {
@@ -27,8 +35,8 @@
                 },
                 user: {
                     id: Uint8Array.from(
-                        registrationChallenge.userId, c => c.charCodeAt(0)),
-                    name: registrationChallenge.username,
+                        registrationChallenge.user.id, c => c.charCodeAt(0)),
+                    name: registrationChallenge.user.name,
                     displayName: document.querySelector("#username").value,
                 },
                 pubKeyCredParams: [{ alg: -7, type: "public-key" }],
@@ -54,15 +62,22 @@
         }
 
         async function auth() {
-            connectServer("GET", "http://localhost:8080/challenge/auth/" + document.querySelector("#username").value, null, fidoAuth)
+            var body = {
+                userId: document.querySelector("#username").value,
+                conext: {
+                    username: document.querySelector("#username").value,
+                    siteId: origin
+                }
+            };
+            connectServer("POST", "http://localhost:8080/challenge/auth", body, fidoAuth)
         }
 
         async function fidoAuth(authenticationChallenge) {
             var credentailIds = new Array();
-            authenticationChallenge.credentailIds.forEach(function (id, index) {
+            authenticationChallenge.allowCredentials.forEach(function (credential, index) {
                 credentailIds[index] = {
                     id: Uint8Array.from(
-                        atob(id.replace(/\-/g, "+").replace(/\_/g, "/").replace(/=/g, "")), c => c.charCodeAt(0)),
+                        atob(credential.id.replace(/\-/g, "+").replace(/\_/g, "/").replace(/=/g, "")), c => c.charCodeAt(0)),
                     type: 'public-key',
                     transports: ['internal']
                 }

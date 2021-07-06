@@ -52,7 +52,7 @@ public class AuthenticationChallengeComponent implements ChallengeComponent {
 //            this.origin = new Origin(url);
 //            this.rpId = origin.getHost();
             //TODO Authorization Basic 정보 기반 rp, origin 정보 set
-            String rpUrl = "http://localhost:8081";
+            String rpUrl = "http://localhost:8080";
             this.origin = new Origin(rpUrl);
 
             RegistrationChallengeComponent.RegistrationFidoChallenge.RelayParty rp = new RegistrationChallengeComponent.RegistrationFidoChallenge.RelayParty();

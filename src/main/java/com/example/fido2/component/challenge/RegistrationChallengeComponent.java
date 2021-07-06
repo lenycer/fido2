@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -44,7 +45,7 @@ public class RegistrationChallengeComponent implements ChallengeComponent {
             this.challenge = Base64Util.encodeToString(new DefaultChallenge().getValue());
 
             //TODO Authorization Basic 정보 기반 rp, origin 정보 set
-            String rpUrl = "http://localhost:8081";
+            String rpUrl = "http://localhost:8080";
             this.origin = new Origin(rpUrl);
 
             RelayParty rp = new RelayParty();
@@ -121,6 +122,15 @@ public class RegistrationChallengeComponent implements ChallengeComponent {
             String authenticatorAttachment;
             String userVerification;
             boolean requireResidentKey;
+        }
+    }
+
+    public static void main(String[] args) {
+        for(int i=0;i<10;i++) {
+//            String challenge = Base64Util.encodeToString(new DefaultChallenge().getValue());
+            String challenge = new String(Base64.getUrlEncoder().withoutPadding().encode(new DefaultChallenge().getValue()));
+            System.out.println(challenge);
+
         }
     }
 }

@@ -126,4 +126,14 @@ public class Fido2Endpoint {
         private String username;
     }
 
+    public static void main(String[] args) {
+        String challenge = "hVVjw+RbK6nJle8DrCNymSUi/9S7H90NEuZaqBpJhVU=";
+        String clientJSON = "eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiaFZWanctUmJLNm5KbGU4RHJDTnltU1VpXzlTN0g5ME5FdVphcUJwSmhWVSIsIm9yaWdpbiI6Imh0dHBzOi8vd2ViYXV0aG4uaW8iLCJjcm9zc09yaWdpbiI6ZmFsc2V9";
+        System.out.println(new String(Base64Utils.decodeFromUrlSafeString(clientJSON)));
+        System.out.println(new String(Base64Utils.decodeFromString(clientJSON)));
+
+        System.out.println(Base64Utils.decodeFromString(challenge));
+        System.out.println(Base64Utils.decodeFromString("hVVjw-RbK6nJle8DrCNymSUi_9S7H90NEuZaqBpJhVU"));
+
+    }
 }
